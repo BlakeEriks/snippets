@@ -5,7 +5,7 @@ import { Controller } from 'react-hook-form'
 import { useRemixForm } from 'remix-hook-form'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
+import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValue } from './ui/select'
 import { Textarea } from './ui/textarea'
 
 const QuoteForm = ({ quote, books }: { quote?: QuoteFormData; books: Books }) => {
@@ -41,7 +41,10 @@ const QuoteForm = ({ quote, books }: { quote?: QuoteFormData; books: Books }) =>
           name='bookId'
           control={control}
           render={({ field }) => (
-            <Select onValueChange={id => field.onChange(Number(id))} value={String(field.value)}>
+            <SelectRoot
+              onValueChange={id => field.onChange(Number(id))}
+              value={String(field.value)}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -52,7 +55,7 @@ const QuoteForm = ({ quote, books }: { quote?: QuoteFormData; books: Books }) =>
                   </SelectItem>
                 ))}
               </SelectContent>
-            </Select>
+            </SelectRoot>
           )}
         />
         {errors.bookId && <p className='text-red-500'>{errors.bookId.message}</p>}
