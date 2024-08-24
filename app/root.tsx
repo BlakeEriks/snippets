@@ -1,32 +1,32 @@
 import {
-  Link,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
-  useLoaderData,
-  useLocation,
   useRouteError,
 } from '@remix-run/react'
 import './globals.css'
 
 import { ThemeSwitcherSafeHTML, ThemeSwitcherScript } from '@/components/theme-switcher'
 
-import { LoaderFunction, json } from '@remix-run/node'
-import { Book, Quote, Upload } from 'lucide-react'
+import { LoaderFunctionArgs } from '@remix-run/node'
 import { useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { getToast } from 'remix-toast'
+import Dialogs from './components/Dialogs'
 import Header from './components/Header'
-import { buttonVariants } from './components/ui/button'
-import { cn } from './lib/utils'
+import Nav from './components/Nav'
+import { getUsers } from './db/user.db'
 import { getUser } from './session.server'
+import { superjson, useSuperLoaderData } from './utils/data'
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const user = await getUser(request)
+  const users = await getUsers()
   const { toast, headers } = await getToast(request)
-  return json({ toast, user: await getUser(request) }, { headers })
+  return superjson({ toast, user, users }, { headers })
 }
 
 function App({ children }: { children: React.ReactNode }) {
@@ -44,16 +44,16 @@ function App({ children }: { children: React.ReactNode }) {
         <ScrollRestoration />
         <Scripts />
         <Toaster />
+        <Dialogs />
       </body>
     </ThemeSwitcherSafeHTML>
   )
 }
 
 export default function Root() {
-  const { user, toast: toastData } = useLoaderData<typeof loader>()
-  const location = useLocation()
+  const { user, toast: toastData, users } = useSuperLoaderData<typeof loader>()
 
-  console.log(location.pathname)
+  console.log('user is ', user)
 
   useEffect(() => {
     if (!toastData) return
@@ -71,44 +71,12 @@ export default function Root() {
   return (
     <App>
       <div className='flex flex-col h-[100vh]'>
-        <Header user={user} />
+        <Header user={user} users={users} />
         <div className='flex py-2'>
-          <nav className='flex flex-col gap-1 px-2 w-64 border-r'>
-            <Link
-              to='/books'
-              className={cn(
-                buttonVariants({ variant: 'ghost' }),
-                location.pathname.includes('books') && 'bg-accent',
-                'justify-start gap-x-1'
-              )}
-            >
-              <Book size={18} />
-              <span>Books</span>
-            </Link>
-            <Link
-              to='/quotes'
-              className={cn(
-                buttonVariants({ variant: 'ghost' }),
-                location.pathname.includes('quotes') && 'bg-accent',
-                'justify-start gap-x-1'
-              )}
-            >
-              <Quote size={18} />
-              Quotes
-            </Link>
-            <Link
-              to='/upload-snippets'
-              className={cn(
-                buttonVariants({ variant: 'ghost' }),
-                location.pathname.includes('upload-snippets') && 'bg-accent',
-                'justify-start gap-x-1'
-              )}
-            >
-              <Upload size={18} />
-              Upload
-            </Link>
-          </nav>
-          <Outlet />
+          <Nav />
+          <div className='p-4'>
+            <Outlet />
+          </div>
         </div>
       </div>
     </App>
