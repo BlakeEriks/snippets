@@ -1,0 +1,72 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x", "darwin-arm64"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_DB_DEV")
+}
+
+model Quote {
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @unique @default(now())
+  meta         String?
+  content      String
+  quotee       String?
+  user         User           @relation(fields: [userId], references: [id])
+  userId       Int
+  tags         Tag[]
+  deleted      Boolean        @default(false)
+  book         Book?          @relation(fields: [bookId], references: [id])
+  bookId       Int?
+  userFavorite UserFavorite[] @relation("UserFavorites") // Many-to-many relation through UserFavorite
+
+  @@map("quotes")
+}
+
+model User {
+  id        Int            @id @default(autoincrement())
+  name      String
+  quotes    Quote[]
+  favorites UserFavorite[] @relation("UserFavorites") // Many-to-many relation through UserFavorite
+
+  @@map("users")
+}
+
+model UserFavorite {
+  user    User  @relation(fields: [userId], references: [id], name: "UserFavorites")
+  userId  Int
+  quote   Quote @relation(fields: [quoteId], references: [id], name: "UserFavorites")
+  quoteId Int
+
+  @@id([userId, quoteId])
+  @@map("user_favorites")
+}
+
+model Book {
+  id       Int     @id @default(autoincrement())
+  title    String  @unique
+  author   Author  @relation(fields: [authorId], references: [id])
+  authorId Int
+  quotes   Quote[]
+  source   String?
+
+  @@map("books")
+}
+
+model Author {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  books Book[]
+
+  @@map("authors")
+}
+
+model Tag {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  quotes Quote[]
+
+  @@map("tags")
+}
