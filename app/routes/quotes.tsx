@@ -1,8 +1,8 @@
 import { Input } from '@/components/ui/input'
 import {
-  Select,
   SelectContent,
   SelectItem,
+  SelectRoot,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
@@ -44,7 +44,7 @@ const Quotes = () => {
           onChange={e => setQuery(e.target.value)}
           className='w-80'
         />
-        <Select onValueChange={id => setBookId(Number(id))} value={String(bookId)}>
+        <SelectRoot onValueChange={id => setBookId(Number(id))} value={String(bookId)}>
           <SelectTrigger className='w-80'>
             <SelectValue />
           </SelectTrigger>
@@ -55,7 +55,7 @@ const Quotes = () => {
               </SelectItem>
             ))}
           </SelectContent>
-        </Select>
+        </SelectRoot>
       </div>
       <div className='flex flex-col'>
         {filteredQuotes.map(quote => (
