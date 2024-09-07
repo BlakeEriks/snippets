@@ -1,9 +1,10 @@
 import { NewUserFormData } from '@/components/NewUserDialog'
 import { createUser } from '@/db/user.db'
-import { createUserSession } from '@/session.server'
+import { createSessionHeaders } from '@/session.server'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ActionFunctionArgs, json } from '@remix-run/node'
 import { getValidatedFormData } from 'remix-hook-form'
+import { redirectWithSuccess } from 'remix-toast'
 import { z } from 'zod'
 
 export const NewUserSchema = z.object({
@@ -27,12 +28,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   try {
     const user = await createUser(data)
-    return createUserSession({
-      request,
-      userId: String(user.id),
-      remember: true,
-      redirectTo: '/home',
-    })
+    const headers = await createSessionHeaders(request, String(user.id))
+    return redirectWithSuccess('/home', 'New User Created', { headers })
   } catch (error) {
     return json({ errorMessage: 'Failed to create user' }, { status: 400 })
   }

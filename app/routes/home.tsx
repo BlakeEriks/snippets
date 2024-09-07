@@ -1,5 +1,9 @@
 const HomeRoute = () => {
-  return <div>home</div>
+  return (
+    <div>
+      <h1 className='text-lg font-semibold'>Welcome to Quotes!</h1>
+    </div>
+  )
 }
 
 export default HomeRoute

@@ -53,8 +53,6 @@ function App({ children }: { children: React.ReactNode }) {
 export default function Root() {
   const { user, toast: toastData, users } = useSuperLoaderData<typeof loader>()
 
-  console.log('user is ', user)
-
   useEffect(() => {
     if (!toastData) return
 
@@ -74,7 +72,7 @@ export default function Root() {
         <Header user={user} users={users} />
         <div className='flex py-2'>
           <Nav />
-          <div className='p-4'>
+          <div className='px-4 flex-1'>
             <Outlet />
           </div>
         </div>

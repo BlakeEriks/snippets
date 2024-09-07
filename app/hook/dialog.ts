@@ -11,16 +11,8 @@ const useDialog = (): UseDialogType => {
   const dialog = searchParams.get('dialog')
 
   const setDialog = useCallback(
-    (dialog: string | null) => {
-      const url = new URL(location.pathname + location.search, window.location.origin)
-      if (dialog === null) {
-        url.searchParams.delete('dialog')
-      } else {
-        url.searchParams.set('dialog', dialog)
-      }
-      navigate(url.pathname + url.search)
-    },
-    [location, dialog]
+    (dialog: string | null) => navigate(dialog === null ? '.' : '?dialog=' + dialog),
+    [dialog]
   )
 
   return [dialog, setDialog]
