@@ -1,17 +1,18 @@
 import {
+  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  isRouteErrorResponse,
+  useLoaderData,
   useRouteError,
 } from '@remix-run/react'
 import './globals.css'
 
 import { ThemeSwitcherSafeHTML, ThemeSwitcherScript } from '@/components/theme-switcher'
 
-import { LoaderFunctionArgs } from '@remix-run/node'
+import { json, LoaderFunctionArgs } from '@remix-run/node'
 import { useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { getToast } from 'remix-toast'
@@ -20,13 +21,12 @@ import Header from './components/Header'
 import Nav from './components/Nav'
 import { getUsers } from './db/user.db'
 import { getUser } from './session.server'
-import { superjson, useSuperLoaderData } from './utils/data'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const user = await getUser(request)
   const users = await getUsers()
   const { toast, headers } = await getToast(request)
-  return superjson({ toast, user, users }, { headers })
+  return json({ toast, user, users }, { headers })
 }
 
 function App({ children }: { children: React.ReactNode }) {
@@ -51,7 +51,7 @@ function App({ children }: { children: React.ReactNode }) {
 }
 
 export default function Root() {
-  const { user, toast: toastData, users } = useSuperLoaderData<typeof loader>()
+  const { user, toast: toastData, users } = useLoaderData<typeof loader>()
 
   useEffect(() => {
     if (!toastData) return
