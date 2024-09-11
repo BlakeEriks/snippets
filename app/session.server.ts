@@ -1,7 +1,7 @@
+import { getUserById } from '@/prisma/src/user.db'
 import { User } from '@prisma/client'
 import { createCookieSessionStorage, redirect } from '@remix-run/node'
 import invariant from 'tiny-invariant'
-import { getUserById } from './db/user.db'
 
 invariant(process.env.SESSION_SECRET, 'SESSION_SECRET must be set')
 

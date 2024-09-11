@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { getBooks } from '@/db/book.db'
+import { getBooks } from '@/prisma/src/book.db'
 import { requireUserId } from '@/session.server'
 import { superjson, useSuperLoaderData } from '@/utils/data'
 import { handleQuoteAction } from '@/utils/quoteAction'

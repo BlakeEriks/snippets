@@ -12,19 +12,27 @@ import './globals.css'
 
 import { ThemeSwitcherSafeHTML, ThemeSwitcherScript } from '@/components/theme-switcher'
 
-import { json, LoaderFunctionArgs } from '@remix-run/node'
+import Dialogs from '@/components/Dialogs'
+import Header from '@/components/Header'
+import Nav from '@/components/Nav'
+import { getUsers } from '@/prisma/src/user.db'
+import { getUser } from '@/session.server'
+import { json, LoaderFunctionArgs, redirect } from '@remix-run/node'
 import { useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { getToast } from 'remix-toast'
-import Dialogs from './components/Dialogs'
-import Header from './components/Header'
-import Nav from './components/Nav'
-import { getUsers } from './db/user.db'
-import { getUser } from './session.server'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const user = await getUser(request)
   const users = await getUsers()
+
+  // Get the current path
+  const path = new URL(request.url).pathname
+  console.log(path)
+  if (!path || path === '/') {
+    return redirect('home')
+  }
+
   const { toast, headers } = await getToast(request)
   return json({ toast, user, users }, { headers })
 }

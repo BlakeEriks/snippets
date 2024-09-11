@@ -1,5 +1,5 @@
 import { NewUserFormData } from '@/components/NewUserDialog'
-import { createUser } from '@/db/user.db'
+import { createUser } from '@/prisma/src/user.db'
 import { createSessionHeaders } from '@/session.server'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ActionFunctionArgs, json } from '@remix-run/node'

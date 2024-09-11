@@ -1,4 +1,4 @@
-import { saveQuote } from '@/db/quote.db'
+import { saveQuote } from '@/prisma/src/quote.db'
 import { requireUserId } from '@/session.server'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { json } from '@remix-run/node'

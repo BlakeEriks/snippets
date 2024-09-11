@@ -1,4 +1,4 @@
-import { Books } from '@/db/book.db'
+import { Books } from '@/prisma/src/book.db'
 import { QuoteFormData } from '@/utils/quoteAction'
 import { Form } from '@remix-run/react'
 import { Controller } from 'react-hook-form'

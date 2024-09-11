@@ -1,5 +1,5 @@
-import { getBooks } from '@/db/book.db'
-import { getQuotes } from '@/db/quote.db'
+import { getBooks } from '@/prisma/src/book.db'
+import { getQuotes } from '@/prisma/src/quote.db'
 import { requireUserId } from '@/session.server'
 import { superjson, useSuperLoaderData } from '@/utils/data'
 import { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node'

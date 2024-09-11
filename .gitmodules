@@ -1,0 +1,3 @@
+[submodule "app/prisma"]
+	path = app/prisma
+	url = https://github.com/BlakeEriks/prisma-quippet.git

@@ -1,4 +1,4 @@
-import { getQuoteById } from '@/db/quote.db'
+import { getQuoteById } from '@/prisma/src/quote.db'
 import { superjson, useSuperLoaderData } from '@/utils/data'
 import { LoaderFunctionArgs } from '@remix-run/node'
 
