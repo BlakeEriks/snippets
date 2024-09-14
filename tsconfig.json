@@ -24,6 +24,9 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
+      "@db/*": [
+        "./app/db.server/src/*"
+      ],
       "@/*": [
         "./app/*"
       ]
