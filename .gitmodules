@@ -1,3 +1,0 @@
-[submodule "app/prisma-db"]
-	path = app/prisma-db
-	url = https://github.com/BlakeEriks/prisma-db.git
