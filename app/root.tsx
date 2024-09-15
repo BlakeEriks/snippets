@@ -1,3 +1,7 @@
+BigInt.prototype.toJSON = function () {
+  return this.toString()
+}
+
 import {
   isRouteErrorResponse,
   Links,
