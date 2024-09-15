@@ -1,6 +1,6 @@
 import { NewUserFormData } from '@/components/NewUserDialog'
-import { createUser } from '@/prisma/src/user.db'
 import { createSessionHeaders } from '@/session.server'
+import { createUser } from '@db/user'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ActionFunctionArgs, json } from '@remix-run/node'
 import { getValidatedFormData } from 'remix-hook-form'

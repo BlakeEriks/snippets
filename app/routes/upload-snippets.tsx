@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
-import { saveClippings } from '@/prisma/src/clipping.db'
 import { requireUserId } from '@/session.server'
+import { saveClippings } from '@db/quippets/clipping.db'
 import { ActionFunctionArgs } from '@remix-run/node'
 import { Form } from '@remix-run/react'
 import { redirectWithSuccess } from 'remix-toast'

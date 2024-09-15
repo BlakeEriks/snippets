@@ -1,5 +1,5 @@
-import { getBooks } from '@/prisma/src/book.db'
 import { requireUserId } from '@/session.server'
+import { getBooks } from '@db/quippets/book.db'
 import { LoaderFunction } from '@remix-run/node'
 import { json, useLoaderData, useRouteError } from '@remix-run/react'
 import _ from 'lodash'

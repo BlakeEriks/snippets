@@ -1,5 +1,5 @@
-import { saveQuote } from '@/prisma/src/quote.db'
 import { requireUserId } from '@/session.server'
+import { saveQuote } from '@db/quippets/quote.db'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { json } from '@remix-run/node'
 import { getValidatedFormData } from 'remix-hook-form'

@@ -1,5 +1,5 @@
-import { getQuoteById } from '@/prisma/src/quote.db'
 import { superjson, useSuperLoaderData } from '@/utils/data'
+import { getQuoteById } from '@db/quippets/quote.db'
 import { LoaderFunctionArgs } from '@remix-run/node'
 
 export const loader = async ({ params: { quoteId } }: LoaderFunctionArgs) => {

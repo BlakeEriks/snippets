@@ -8,10 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { getBooks } from '@/prisma/src/book.db'
 import { requireUserId } from '@/session.server'
 import { superjson, useSuperLoaderData } from '@/utils/data'
 import { handleQuoteAction } from '@/utils/quoteAction'
+import { getBooks } from '@db/quippets/book.db'
 import { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node'
 import { useNavigate } from '@remix-run/react'
 
