@@ -1,7 +1,3 @@
-BigInt.prototype.toJSON = function () {
-  return this.toString()
-}
-
 import {
   isRouteErrorResponse,
   Links,
@@ -12,6 +8,7 @@ import {
   useLoaderData,
   useRouteError,
 } from '@remix-run/react'
+import './globals'
 import './globals.css'
 
 import { ThemeSwitcherSafeHTML, ThemeSwitcherScript } from '@/components/theme-switcher'
