@@ -3,10 +3,10 @@ import { Button } from '@/components/ui/button'
 import { requireUserId } from '@/session.server'
 import { superjson, useSuperLoaderData } from '@/utils/data'
 import { handleQuoteAction } from '@/utils/quoteAction'
-import { getBooks } from '@db/quippets/book.db'
 import { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node'
 import { Link } from '@remix-run/react'
 import { ArrowLeft } from 'lucide-react'
+import { getBooks } from 'prisma-db'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userId = await requireUserId(request)

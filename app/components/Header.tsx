@@ -1,7 +1,7 @@
 import useDialog from '@/hook/dialog'
-import { User } from '@prisma/client'
 import { useFetcher } from '@remix-run/react'
 import { CircleUser, LoaderCircle, Plus } from 'lucide-react'
+import { User } from 'prisma-db'
 import { useRef, useState } from 'react'
 import { Button } from './ui/button'
 import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValue } from './ui/select'

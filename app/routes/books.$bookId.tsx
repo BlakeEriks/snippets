@@ -1,12 +1,11 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { requireUserId } from '@/session.server'
-import { getBooks } from '@db/quippets/book.db'
-import { getFavorites, toggleDeleted, toggleFavorite } from '@db/quippets/quote.db'
 import { ActionFunction, LoaderFunctionArgs } from '@remix-run/node'
 import { Form, Link, Outlet, json, redirect, useLoaderData, useNavigate } from '@remix-run/react'
 import _ from 'lodash'
 import { Copy, Edit2, Heart, Undo2, X } from 'lucide-react'
+import { getBooks, getFavorites, toggleDeleted, toggleFavorite } from 'prisma-db'
 import { useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
 

@@ -24,9 +24,6 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@db/*": [
-        "./app/db.server/src/*"
-      ],
       "@/*": [
         "./app/*"
       ]
@@ -36,9 +33,4 @@
     "declaration": true,
     "declarationMap": true
   },
-  "references": [
-    {
-      "path": "./app/db.server"
-    }
-  ]
 }

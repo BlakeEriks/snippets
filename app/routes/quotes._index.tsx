@@ -9,11 +9,10 @@ import {
 } from '@/components/ui/select'
 import { requireUserId } from '@/session.server'
 import { superjson, useSuperLoaderData } from '@/utils/data'
-import { getBooks } from '@db/quippets/book.db'
-import { getQuotes } from '@db/quippets/quote.db'
 import { LoaderFunctionArgs } from '@remix-run/node'
 import { Link } from '@remix-run/react'
 import { Plus } from 'lucide-react'
+import { getBooks, getQuotes } from 'prisma-db'
 import { useState } from 'react'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {

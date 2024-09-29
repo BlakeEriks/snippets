@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button'
 import { requireUserId } from '@/session.server'
-import { saveClippings } from '@db/quippets/clipping.db'
 import { ActionFunctionArgs } from '@remix-run/node'
 import { Form } from '@remix-run/react'
+import { saveClippings } from 'prisma-db'
 import { redirectWithSuccess } from 'remix-toast'
 
 export const action = async ({ request }: ActionFunctionArgs) => {

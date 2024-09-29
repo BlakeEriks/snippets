@@ -1,7 +1,7 @@
 import { requireUserId } from '@/session.server'
-import { saveQuote } from '@db/quippets/quote.db'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { json } from '@remix-run/node'
+import { saveQuote } from 'prisma-db'
 import { getValidatedFormData } from 'remix-hook-form'
 import { redirectWithSuccess } from 'remix-toast'
 import { z } from 'zod'

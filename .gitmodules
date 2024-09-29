@@ -1,3 +1,0 @@
-[submodule "app/db.server"]
-	path = app/db.server
-	url = https://github.com/BlakeEriks/prisma-db.git

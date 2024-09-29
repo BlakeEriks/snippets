@@ -1,9 +1,8 @@
 import { requireUserId } from '@/session.server'
 import { superjson, useSuperLoaderData } from '@/utils/data'
-import { getBooks } from '@db/quippets/book.db'
-import { getQuotes } from '@db/quippets/quote.db'
 import { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node'
 import { Outlet } from '@remix-run/react'
+import { getBooks, getQuotes } from 'prisma-db'
 import { useState } from 'react'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
