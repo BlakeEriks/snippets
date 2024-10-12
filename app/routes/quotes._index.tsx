@@ -69,10 +69,10 @@ const Quotes = () => {
       </div>
       <div className='flex flex-col'>
         {filteredQuotes.map(quote => (
-          <div key={quote.id} className='p-2 border-b'>
+          <Link to={quote.id.toString()} key={quote.id} className='p-2 border-b'>
             <p className='text-sm'>{quote.content}</p>
             <p className='text-xs text-gray-500'>{quote.quotee}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

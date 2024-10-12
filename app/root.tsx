@@ -28,7 +28,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   // Get the current path
   const path = new URL(request.url).pathname
-  console.log(path)
+
   if (!path || path === '/') {
     return redirect('home')
   }
