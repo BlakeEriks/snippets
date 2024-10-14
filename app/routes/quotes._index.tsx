@@ -17,7 +17,6 @@ import { useState } from 'react'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userId = await requireUserId(request)
-
   const quotes = await getQuotes(userId)
   const books = await getBooks(userId)
 
