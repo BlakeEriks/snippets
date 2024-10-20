@@ -17,6 +17,7 @@ import { Copy, Edit2, Heart, Plus, Undo2, X } from 'lucide-react'
 import { getBooks, getFavorites, getQuotes, toggleDeleted, toggleFavorite } from 'prisma-db'
 import { useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
+import { Checkbox } from 'src/components/ui/checkbox'
 
 type Quote = Awaited<ReturnType<typeof getQuotes>>[0]
 
@@ -43,7 +44,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   }
   if (intent === 'delete') {
     await toggleDeleted(Number(quoteId))
-    return redirect(`/books/${params.bookId}`)
+    return redirect(`/quotes`)
   }
 
   return redirect(`/quotes`)
@@ -53,15 +54,23 @@ const Quotes = () => {
   const { quotes, books, favorites } = useSuperLoaderData<typeof loader>()
   const [query, setQuery] = useState('')
   const [bookId, setBookId] = useState<number | undefined>(undefined)
+  const [showFavorites, setShowFavorites] = useState(false)
 
   const filteredQuotes = quotes
     .filter(quote => quote.content.toLowerCase().includes(query.toLowerCase()))
     .filter(quote => !bookId || quote.bookId === bookId)
+    .filter(quote => !showFavorites || favorites.includes(quote.id))
 
   return (
     <div className='space-y-2'>
       <div className='flex gap-x-2 items-center border-b pb-2'>
         <h2 className='text-xl font-bold w-full px-4'>Quotes</h2>
+        <label htmlFor='favorites'>Favorites</label>
+        <Checkbox
+          id='favorites'
+          checked={showFavorites}
+          onCheckedChange={val => setShowFavorites(!!val)}
+        />
         <Input
           type='search'
           placeholder='Search Quotes'
@@ -108,20 +117,20 @@ const Quote = ({ quote: { id, content, quotee, deleted }, favorite }: QuoteProps
   const navigate = useNavigate()
 
   return (
-    <Form key={id} method='post'>
+    <Form key={id} method='post' className='border-b group'>
       <div className='flex justify-between'>
-        <Link to={id.toString()} key={id} className='p-2 border-b'>
+        <Link to={id.toString()} key={id} className='p-2'>
           <p className='text-sm'>{content}</p>
           <p className='text-xs text-gray-500'>{quotee}</p>
         </Link>
-        <div className='flex justify-center'>
+        <div className='flex justify-center opacity-0 group-hover:opacity-100'>
           <Button
             name='intent'
             value='favorite'
             variant='ghost'
             size='sm'
             // disabled={loading[id]}
-            className='opacity-50 hover:opacity-80 transition-all scale-110'
+            className='group-hover:opacity-50 hover:opacity-80 transition-all scale-110'
           >
             <Heart className={cn('shrink-0')} size={12} fill={favorite ? 'red' : 'none'} />
           </Button>
@@ -131,7 +140,7 @@ const Quote = ({ quote: { id, content, quotee, deleted }, favorite }: QuoteProps
             size='sm'
             // disabled={loading[id]}
             onClick={() => navigate(`./quotes/${id}`)}
-            className='opacity-50 hover:opacity-80 transition-all scale-110'
+            className='group-hover:opacity-50 hover:opacity-80 transition-all scale-110'
           >
             <Edit2 className='shrink-0' size={12} />
           </Button>
@@ -165,9 +174,9 @@ const CopyButton = ({ content }: { content: string }) => {
         toast.success('Copied!')
       },
       500,
-      { leading: true },
+      { leading: true }
     ),
-    [],
+    []
   )
 
   return (
