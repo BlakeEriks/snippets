@@ -37,15 +37,16 @@ export const action: ActionFunction = async ({ request, params }) => {
   const intent = formData.get('intent')
 
   if (intent === 'favorite') {
+    console.log(userId, quoteId)
     await toggleFavorite(userId, Number(quoteId))
-    return redirect(`/books/${params.bookId}`)
+    return redirect(`/quotes`)
   }
   if (intent === 'delete') {
     await toggleDeleted(Number(quoteId))
     return redirect(`/books/${params.bookId}`)
   }
 
-  return redirect(`/books/${params.bookId}`)
+  return redirect(`/quotes`)
 }
 
 const Quotes = () => {
@@ -151,6 +152,7 @@ const Quote = ({ quote: { id, content, quotee, deleted }, favorite }: QuoteProps
           </Button>
         </div>
       </div>
+      <input type='hidden' name='quoteId' value={id} />
     </Form>
   )
 }
