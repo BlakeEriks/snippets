@@ -17,6 +17,7 @@ import { Copy, Edit2, Heart, Plus, Undo2, X } from 'lucide-react'
 import { getBooks, getFavorites, getQuotes, toggleDeleted, toggleFavorite } from 'prisma-db'
 import { useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
+import { Virtuoso } from 'react-virtuoso'
 import { Checkbox } from 'src/components/ui/checkbox'
 
 type Quote = Awaited<ReturnType<typeof getQuotes>>[0]
@@ -62,7 +63,7 @@ const Quotes = () => {
     .filter(quote => !showFavorites || favorites.includes(quote.id))
 
   return (
-    <div className='space-y-2'>
+    <div className='flex flex-col space-y-2 flex-1'>
       <div className='flex gap-x-2 items-center border-b pb-2'>
         <h2 className='text-xl font-bold w-full px-4'>Quotes</h2>
         <label htmlFor='favorites'>Favorites</label>
@@ -99,10 +100,15 @@ const Quotes = () => {
           </Link>
         </Button>
       </div>
-      <div className='flex flex-col'>
-        {filteredQuotes.map(quote => (
-          <Quote key={quote.id} quote={quote} favorite={favorites.includes(quote.id)} />
-        ))}
+      <div className='flex flex-col flex-1'>
+        <Virtuoso
+          style={{ height: '100%' }}
+          totalCount={filteredQuotes.length}
+          itemContent={index => {
+            const quote = filteredQuotes[index]
+            return <Quote quote={quote} favorite={favorites.includes(quote.id)} />
+          }}
+        />
       </div>
     </div>
   )
@@ -139,7 +145,7 @@ const Quote = ({ quote: { id, content, quotee, deleted }, favorite }: QuoteProps
             variant='ghost'
             size='sm'
             // disabled={loading[id]}
-            onClick={() => navigate(`./quotes/${id}`)}
+            onClick={() => navigate(`${id}`)}
             className='group-hover:opacity-50 hover:opacity-80 transition-all scale-110'
           >
             <Edit2 className='shrink-0' size={12} />

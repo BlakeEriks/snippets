@@ -78,11 +78,9 @@ export default function Root() {
     <App>
       <div className='flex flex-col h-[100vh]'>
         <Header user={user} users={users} />
-        <div className='flex py-2'>
+        <div className='flex py-2 flex-1'>
           <Nav />
-          <div className='px-4 flex-1'>
-            <Outlet />
-          </div>
+          <Outlet />
         </div>
       </div>
     </App>
